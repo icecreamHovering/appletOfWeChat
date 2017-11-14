@@ -1,0 +1,10 @@
+<!--  注册登陆页  -->
+<view class='register-index'>
+  <view>
+  <icon></icon>
+  </view>
+  <view></view>
+  <view></view>
+  <view></view>
+  <view></view>
+</view>
