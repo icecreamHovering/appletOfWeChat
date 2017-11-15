@@ -84,3 +84,24 @@ Promise 对象有以下两个特点。
 （2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。Promise 对象的状态改变，只有两种可能：从 Pending 变为 Resolved 和从 Pending 变为 Rejected。只要这两种情况发生，状态就凝固了，不会再变了，会一直保持这个结果。就算改变已经发生了，你再对 Promise 对象添加回调函数，也会立即得到这个结果。这与事件（Event）完全不同，事件的特点是，如果你错过了它，再去监听，是得不到结果的。
 
 */
+
+/*6、针对原生API进行优化*/
+//对想在API进行Promise处理，同时修复一些现有API的缺陷，比如：wx.request并发问题等。
+//原有代码
+onLoad = function(){
+	var self = this;
+	wx.login({
+		success:function(data){
+			wx.getUserInfo({
+				success:function(userinfo){
+					self.setData({userInfo:userinfo});
+				}
+			});
+		}
+	});
+}
+//基于wepy实现代码
+async onLoad(){
+	await wx.login();
+	this.userInfo = await wx.getUserInfo();
+}
